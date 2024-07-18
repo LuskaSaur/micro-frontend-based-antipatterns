@@ -21,6 +21,11 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
+    "src",
+    "__tests__",
+    "microfronted-antipatterns"
+  ],
+  "exclude": [
+    "src/reportWebVitals.ts"
   ]
 }
