@@ -5,7 +5,7 @@ name: AntiPatterns CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "feat-add-mvp-project" ]
   pull_request:
     branches: [ "main" ]
 
