@@ -1,5 +1,12 @@
-import React from 'react';
-import { Divider, Flex, Image, Text, Tooltip } from '@chakra-ui/react';
+import React, { useEffect } from 'react';
+import {
+  Divider,
+  Flex,
+  Image,
+  Text,
+  Tooltip,
+  useDisclosure,
+} from '@chakra-ui/react';
 import { ArrowBackIcon, InfoIcon } from '@chakra-ui/icons';
 import { FilterProperties } from '../../utils/constants';
 import ExampleIcon from '../../assets/example-icon.svg';
@@ -19,7 +26,8 @@ import {
   AntiPatternSectionImageTitle,
 } from './styles';
 import { TAntiPatternsItem } from '../../components/AntiPatternsList/types';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import antiPatternsFiles from '../../antipatterns';
 
 const AntiPatternSection = ({
   antiPatternSection,
@@ -61,11 +69,21 @@ const AntiPatternSection = ({
     {showDivider && <Divider marginTop="28px" color="border" width="97%" />}
   </>
 );
+const data = antiPatternsFiles as TAntiPatternsItem[];
 
 export function Details() {
-  const { state } = useLocation();
   const navigate = useNavigate();
-  const antiPatternsData = state.data as TAntiPatternsItem;
+  const { id } = useParams();
+  const antiPatternsData = data.filter(
+    (item) => item.name.toLocaleLowerCase() === id?.toLocaleLowerCase()
+  )[0];
+  const { isOpen, onOpen, onToggle, onClose } = useDisclosure();
+
+  useEffect(() => {
+    document.title = `${antiPatternsData.name} - Micro Frontends Anti-patterns Catalog`;
+  }, []);
+
+  if (!antiPatternsData) return null;
 
   return (
     <Flex flexDirection="column">
@@ -109,8 +127,18 @@ export function Details() {
               bg="title-text"
               color="white"
               label={FilterProperties[antiPatternsData.category]?.hint}
+              isOpen={isOpen}
             >
-              <InfoIcon marginLeft="4px" />
+              <InfoIcon
+                marginLeft="4px"
+                minW="none"
+                minHeight="auto"
+                height="auto"
+                aria-label="more info"
+                onMouseEnter={onOpen}
+                onMouseLeave={onClose}
+                onClick={onToggle}
+              />
             </Tooltip>
           </AntiPatternTag>
         </AntiPatternNameContainer>

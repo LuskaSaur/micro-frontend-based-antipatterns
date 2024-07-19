@@ -12,7 +12,7 @@ export const WrapperContext = createContext<WrapperContextProps>(
 export function Wrapper() {
   const providerValues = useWrapper();
   return (
-    <Box>
+    <Box minHeight={'100vh'}>
       <WrapperContext.Provider value={providerValues}>
         <Header />
         <ListContainer>
@@ -21,7 +21,7 @@ export function Wrapper() {
           </WitheCard>
         </ListContainer>
       </WrapperContext.Provider>
-      <Flex justifyContent="center">
+      <Flex justifyContent="center" alignSelf="end">
         <FooterText>
           Research conducted at UFAM by the USES Group | © 2024
         </FooterText>

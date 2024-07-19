@@ -1,5 +1,5 @@
 export const SCREENS = {
   CATALOG: '/catalog',
-  DETAILS: '/details',
+  DETAILS: '/details/:id',
   LANDING_PAGE: '/',
 };

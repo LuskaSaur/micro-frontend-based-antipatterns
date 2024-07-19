@@ -15,7 +15,7 @@ import {
   InputGroup,
   InputRightElement,
 } from '@chakra-ui/react';
-import { Search2Icon, HamburgerIcon } from '@chakra-ui/icons';
+import { Search2Icon, HamburgerIcon, SmallCloseIcon } from '@chakra-ui/icons';
 import {
   DrawerButton,
   HeaderContainer,
@@ -82,6 +82,7 @@ export function Header() {
     inputRef,
     navigateBack,
     setQuery,
+    query,
   } = useHeader();
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -99,7 +100,13 @@ export function Header() {
   return (
     <>
       <HeaderContainer>
-        <LogoContainer onClick={navigateBack}>
+        <LogoContainer
+          onClick={() => {
+            if (inputRef && inputRef.current) inputRef.current.value = '';
+            navigateBack();
+          }}
+          cursor="pointer"
+        >
           <Image
             src={HeaderLogo}
             width={{
@@ -107,7 +114,6 @@ export function Header() {
               md: '146px',
               lg: '146px',
             }}
-            cursor="pointer"
           />
         </LogoContainer>
 
@@ -130,7 +136,22 @@ export function Header() {
               ref={inputRef}
             />
             <InputRightElement>
-              <Search2Icon color={inputFocus ? 'primary' : 'paragraph-text'} />
+              {!query ? (
+                <Search2Icon
+                  color={inputFocus ? 'primary' : 'paragraph-text'}
+                />
+              ) : (
+                <SmallCloseIcon
+                  color={'primary'}
+                  boxSize="24px"
+                  cursor="pointer"
+                  onClick={() => {
+                    if (inputRef && inputRef.current)
+                      inputRef.current.value = '';
+                    navigateBack();
+                  }}
+                />
+              )}
             </InputRightElement>
           </InputGroup>
         </SearchBarContainer>
@@ -153,8 +174,15 @@ export function Header() {
           <DrawerCloseButton />
           <DrawerBody>
             <Flex flexDirection="column" marginTop={'64px'}>
-              <Box alignSelf={'center'} onClick={navigateBack}>
-                <Image src={HeaderLogo} width="146px" cursor="pointer" />
+              <Box
+                alignSelf={'center'}
+                onClick={() => {
+                  if (inputRef && inputRef.current) inputRef.current.value = '';
+                  navigateBack();
+                }}
+                cursor="pointer"
+              >
+                <Image src={HeaderLogo} width="146px" />
               </Box>
               <StyledDivider />
               <RenderItems isColumn items={items} />

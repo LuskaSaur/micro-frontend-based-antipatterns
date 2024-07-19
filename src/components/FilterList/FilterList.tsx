@@ -1,5 +1,4 @@
 import React from 'react';
-import { FilterItemsEnum } from '../../utils/constants';
 import { Box, Text } from '@chakra-ui/react';
 import { FilterButton, FilterListContainer } from './styles';
 import { TFilterItems } from './types';
@@ -9,7 +8,7 @@ function RenderFilters({
   selectedItem,
 }: {
   filters: TFilterItems[];
-  selectedItem: FilterItemsEnum;
+  selectedItem: string;
 }) {
   return (
     <Box display="inline-block">
@@ -41,7 +40,7 @@ export function FilterList({
   selectedItem,
 }: {
   filters: TFilterItems[];
-  selectedItem: FilterItemsEnum;
+  selectedItem: string;
 }) {
   return (
     <Box>

@@ -1,7 +1,5 @@
-import { FilterItemsEnum } from '../../utils/constants';
-
 export type TFilterItems = {
-  key: FilterItemsEnum;
+  key: string;
   count: number;
   text: string;
   handleClick(): void;

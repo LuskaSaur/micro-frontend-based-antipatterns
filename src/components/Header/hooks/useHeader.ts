@@ -5,9 +5,10 @@ import { SCREENS } from '../../../utils/screens';
 import { TDrawerHeaderItems } from './types';
 import { useDisclosure } from '@chakra-ui/react';
 import { WrapperContext } from '../../Wrapper/Wrapper';
+import { ACTIONS } from '../../../reducer/searchReducer';
 
 const useHeader = () => {
-  const { dispatch } = useContext(WrapperContext);
+  const { dispatch, query } = useContext(WrapperContext);
   const { pathname } = useLocation();
 
   const [inputFocus, setInputFocus] = useState(false);
@@ -17,6 +18,7 @@ const useHeader = () => {
 
   const navigateBack = () => {
     if (pathname !== SCREENS.CATALOG) navigate(-1);
+    else dispatch({ type: ACTIONS.CLEAR_FORM });
   };
 
   const items = useMemo(() => {
@@ -50,6 +52,7 @@ const useHeader = () => {
     inputRef,
     navigateBack,
     setQuery: dispatch,
+    query,
   };
 };
 

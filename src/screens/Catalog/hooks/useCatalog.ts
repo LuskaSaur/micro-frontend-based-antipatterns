@@ -12,10 +12,15 @@ import { ACTIONS } from '../../../reducer/searchReducer';
 
 const HIGHLIGH_INTERVAL = 100;
 const data = antiPatternsFiles as TAntiPatternsItem[];
+
 const useCatalog = () => {
   const { query, search, typing, dispatch, debouncedQuery } =
     useContext(WrapperContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = ` Micro Frontends Anti-patterns Catalog`;
+  });
 
   useEffect(() => {
     if (query === '') dispatch({ type: ACTIONS.CLEAR_FORM });
@@ -23,7 +28,9 @@ const useCatalog = () => {
       debouncedQuery === query && dispatch({ type: ACTIONS.USER_STOP_TYPING });
   }, [debouncedQuery, dispatch, query]);
 
-  const [selectedFilter, setSelectedFilter] = useState(FilterItemsEnum.ALL);
+  const [selectedFilter, setSelectedFilter] = useState<string>(
+    FilterItemsEnum.ALL
+  );
   const [filteredData, setFilteredData] = useState<TAntiPatternsItem[]>([]);
 
   const searchData = useCallback(() => {
@@ -93,6 +100,15 @@ const useCatalog = () => {
   );
 
   const filters = useMemo(() => {
+    const filters = data.map((item) => ({
+      key: item.category,
+      text: item.category,
+      count: filtersItemsCount(item.category),
+      handleClick: () => {
+        setSelectedFilter(item.category);
+        filterData(item.category);
+      },
+    }));
     const all: TFilterItems = {
       key: FilterItemsEnum.ALL,
       text: 'All Anti-patterns',
@@ -102,51 +118,11 @@ const useCatalog = () => {
         filterData(FilterItemsEnum.ALL);
       },
     };
-
-    const interFrontend: TFilterItems = {
-      key: FilterItemsEnum.INTER_FRONTEND,
-      text: 'Inter-frontend',
-      count: filtersItemsCount(FilterItemsEnum.INTER_FRONTEND),
-      handleClick: () => {
-        setSelectedFilter(FilterItemsEnum.INTER_FRONTEND);
-        filterData(FilterItemsEnum.INTER_FRONTEND);
-      },
-    };
-
-    const intraFrontend: TFilterItems = {
-      key: FilterItemsEnum.INTRA_FRONTEND,
-      text: 'Intra-frontend',
-      count: filtersItemsCount(FilterItemsEnum.INTRA_FRONTEND),
-      handleClick: () => {
-        setSelectedFilter(FilterItemsEnum.INTRA_FRONTEND);
-        filterData(FilterItemsEnum.INTRA_FRONTEND);
-      },
-    };
-
-    const operation: TFilterItems = {
-      key: FilterItemsEnum.OPERATION,
-      text: 'Operation',
-      count: filtersItemsCount(FilterItemsEnum.OPERATION),
-      handleClick: () => {
-        setSelectedFilter(FilterItemsEnum.OPERATION);
-        filterData(FilterItemsEnum.OPERATION);
-      },
-    };
-
-    const development: TFilterItems = {
-      key: FilterItemsEnum.DEVELOPMENT,
-      text: 'Development',
-      count: filtersItemsCount(FilterItemsEnum.DEVELOPMENT),
-      handleClick: () => {
-        setSelectedFilter(FilterItemsEnum.DEVELOPMENT);
-        filterData(FilterItemsEnum.DEVELOPMENT);
-      },
-    };
-    return [all, interFrontend, intraFrontend, operation, development];
+    return [all, ...filters];
   }, [filtersItemsCount, data]);
 
   const handleClickItem = useCallback((data: TAntiPatternsItem) => {
-    navigate(SCREENS.DETAILS, { state: { data } });
+    navigate(`/details/${data.name}`);
   }, []);
 
   return {

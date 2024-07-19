@@ -28,6 +28,7 @@ export const AntiPatternTag = styled(Tag).attrs({
   width: 'fit-content',
   height: 'fit-content',
   borderRadius: '24px',
+  marginBottom: { base: '8px', md: '0px', lg: '0px' },
 })``;
 
 export const AntiPatternSectionContainer = styled(SimpleGrid).attrs({
