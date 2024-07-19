@@ -1,4 +1,4 @@
-import { Card, Flex, Image, SimpleGrid, Tag, Text } from '@chakra-ui/react';
+import { Flex, Image, SimpleGrid, Tag, Text } from '@chakra-ui/react';
 import styled from 'styled-components';
 
 export const HeaderContainer = styled(Flex).attrs({

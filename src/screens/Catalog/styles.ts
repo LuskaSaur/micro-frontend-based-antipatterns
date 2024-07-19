@@ -1,4 +1,4 @@
-import { Button, Card, Flex, Spinner, Text } from '@chakra-ui/react';
+import { Button, Spinner, Text } from '@chakra-ui/react';
 import styled from 'styled-components';
 
 export const FilterButton = styled(Button).attrs({

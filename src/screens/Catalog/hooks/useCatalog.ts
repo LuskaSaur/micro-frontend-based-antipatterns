@@ -1,11 +1,4 @@
-import {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useReducer,
-  useState,
-} from 'react';
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { FilterItemsEnum } from '../../../utils/constants';
 import { TFilterItems } from '../../../components/FilterList/types';
 import antiPatternsFiles from '../../../antipatterns';
