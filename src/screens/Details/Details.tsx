@@ -89,7 +89,11 @@ export function Details() {
     <Flex flexDirection="column">
       <HeaderContainer>
         <HeaderPathContainer>
-          <PathHeaderText color="paragraph-text">
+          <PathHeaderText
+            color="paragraph-text"
+            cursor="pointer"
+            onClick={() => navigate(-1)}
+          >
             Explore the Catalog
           </PathHeaderText>
           <PathHeaderText
