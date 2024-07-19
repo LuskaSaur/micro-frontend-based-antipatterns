@@ -6,7 +6,6 @@ import antiPatternsFiles from '../../../antipatterns';
 import { TAntiPatternsItem } from '../../../components/AntiPatternsList/types';
 
 import { useNavigate } from 'react-router-dom';
-import { SCREENS } from '../../../utils/screens';
 import { WrapperContext } from '../../../components/Wrapper/Wrapper';
 import { ACTIONS } from '../../../reducer/searchReducer';
 

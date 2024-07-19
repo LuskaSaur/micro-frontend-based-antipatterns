@@ -26,7 +26,7 @@ import {
   AntiPatternSectionImageTitle,
 } from './styles';
 import { TAntiPatternsItem } from '../../components/AntiPatternsList/types';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import antiPatternsFiles from '../../antipatterns';
 
 const AntiPatternSection = ({
