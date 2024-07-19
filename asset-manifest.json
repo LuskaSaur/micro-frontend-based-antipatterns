@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.js": "/micro-frontend-based-antipatterns/static/js/main.f602f588.js",
+    "main.js": "/micro-frontend-based-antipatterns/static/js/main.dac77ddb.js",
     "static/js/453.b8277f95.chunk.js": "/micro-frontend-based-antipatterns/static/js/453.b8277f95.chunk.js",
     "static/media/header-logo.svg": "/micro-frontend-based-antipatterns/static/media/header-logo.af471ca74a152728a167dac0dc8c0960.svg",
     "static/media/search-not-found.svg": "/micro-frontend-based-antipatterns/static/media/search-not-found.137e9f81daba30ea54d90542979249ec.svg",
@@ -8,10 +8,10 @@
     "static/media/example-icon.svg": "/micro-frontend-based-antipatterns/static/media/example-icon.5dc12e5b77a1051e6a18f1bdbb01ac58.svg",
     "static/media/solution-icon.svg": "/micro-frontend-based-antipatterns/static/media/solution-icon.7573c77e934911cc53cf4c43a427c576.svg",
     "index.html": "/micro-frontend-based-antipatterns/index.html",
-    "main.f602f588.js.map": "/micro-frontend-based-antipatterns/static/js/main.f602f588.js.map",
+    "main.dac77ddb.js.map": "/micro-frontend-based-antipatterns/static/js/main.dac77ddb.js.map",
     "453.b8277f95.chunk.js.map": "/micro-frontend-based-antipatterns/static/js/453.b8277f95.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.f602f588.js"
+    "static/js/main.dac77ddb.js"
   ]
 }
