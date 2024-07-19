@@ -3,20 +3,11 @@
   "name": "Micro front-ends Anti-patterns Catalog",
   "icons": [
     {
-      "src": "header-logo",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "lheader-logo",
-      "type": "image/svg",
-      "sizes": "192x192"
-    },
-    {
-      "src": "header-logo",
-      "type": "image/svg",
-      "sizes": "512x512"
-    }
+      "src": "favicon.svg",
+      "sizes": "150x150",
+      "type": "image/svg+xml",
+      "purpose": "any"
+  }
   ],
   "start_url": ".",
   "display": "standalone",
