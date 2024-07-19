@@ -1,6 +1,5 @@
 import React from 'react';
 import { Divider, Flex, Image, Text, Tooltip } from '@chakra-ui/react';
-import { TAntiPatternsItem } from '../AntiPatternsList/types';
 import { ArrowBackIcon, InfoIcon } from '@chakra-ui/icons';
 import { FilterProperties } from '../../utils/constants';
 import ExampleIcon from '../../assets/example-icon.svg';
@@ -12,7 +11,6 @@ import {
   AntiPatternSectionDescription,
   AntiPatternSectionImageDescription,
   AntiPatternTag,
-  Container,
   HeaderContainer,
   HeaderPathContainer,
   PathHeaderText,
@@ -20,6 +18,8 @@ import {
   AntiPatternsSectionImage,
   AntiPatternSectionImageTitle,
 } from './styles';
+import { TAntiPatternsItem } from '../../components/AntiPatternsList/types';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const AntiPatternSection = ({
   antiPatternSection,
@@ -62,17 +62,13 @@ const AntiPatternSection = ({
   </>
 );
 
-export function AntiPatternDetails({
-  antiPatternsData,
-  setDetailedAntiPattern,
-}: {
-  antiPatternsData: TAntiPatternsItem;
-  setDetailedAntiPattern: React.Dispatch<
-    React.SetStateAction<TAntiPatternsItem | null>
-  >;
-}) {
+export function Details() {
+  const { state } = useLocation();
+  const navigate = useNavigate();
+  const antiPatternsData = state.data as TAntiPatternsItem;
+
   return (
-    <Container>
+    <Flex flexDirection="column">
       <HeaderContainer>
         <HeaderPathContainer>
           <PathHeaderText color="paragraph-text">
@@ -98,7 +94,7 @@ export function AntiPatternDetails({
               _active={{
                 transform: 'scale(0.98)',
               }}
-              onClick={() => setDetailedAntiPattern(null)}
+              onClick={() => navigate(-1)}
             />
             <Text fontWeight={700} fontSize={'32px'}>
               {antiPatternsData.name}
@@ -137,6 +133,6 @@ export function AntiPatternDetails({
         sectionTile="Solution"
         iconName={SolutionIcon}
       />
-    </Container>
+    </Flex>
   );
 }

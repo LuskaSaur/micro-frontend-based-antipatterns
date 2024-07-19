@@ -13,13 +13,11 @@ import {
 
 function RenderAntiPatterns({
   antiPatterns,
-  setDetailedAntiPattern,
+  handleClickItem,
   search,
 }: {
   antiPatterns: TAntiPatternsItem[];
-  setDetailedAntiPattern: React.Dispatch<
-    React.SetStateAction<TAntiPatternsItem | null>
-  >;
+  handleClickItem: (data: TAntiPatternsItem) => void;
   search: string;
 }) {
   return (
@@ -27,7 +25,7 @@ function RenderAntiPatterns({
       {antiPatterns.map((item, index) => (
         <ItemContainer
           key={`${item.name}_${index}`}
-          onClick={() => setDetailedAntiPattern(item)}
+          onClick={() => handleClickItem(item)}
         >
           <TextContainer>
             <AntiPatternItemTitle>{item.name}</AntiPatternItemTitle>
@@ -50,20 +48,18 @@ function RenderAntiPatterns({
 
 export function AntiPatternsList({
   antiPatterns,
-  setDetailedAntiPattern,
+  handleClickItem,
   search,
 }: {
   antiPatterns: TAntiPatternsItem[];
-  setDetailedAntiPattern: React.Dispatch<
-    React.SetStateAction<TAntiPatternsItem | null>
-  >;
+  handleClickItem: (data: TAntiPatternsItem) => void;
   search: string;
 }) {
   return (
     <GridContainer>
       <RenderAntiPatterns
         antiPatterns={antiPatterns}
-        setDetailedAntiPattern={setDetailedAntiPattern}
+        handleClickItem={handleClickItem}
         search={search}
       />
     </GridContainer>

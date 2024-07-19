@@ -1,29 +1,37 @@
-import { useCallback, useEffect, useMemo, useReducer, useState } from 'react';
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useReducer,
+  useState,
+} from 'react';
 import { FilterItemsEnum } from '../../../utils/constants';
 import { TFilterItems } from '../../../components/FilterList/types';
 import antiPatternsFiles from '../../../antipatterns';
 
 import { TAntiPatternsItem } from '../../../components/AntiPatternsList/types';
-import { useDebounce } from '../../../hooks/useDebounce';
-import { ACTIONS, INIT_STATE, reducer } from '../reducer/searchReducer';
 
-export const SEARCH_DEBOUNCE_TIME = 400;
+import { useNavigate } from 'react-router-dom';
+import { SCREENS } from '../../../utils/screens';
+import { WrapperContext } from '../../../components/Wrapper/Wrapper';
+import { ACTIONS } from '../../../reducer/searchReducer';
+
 const HIGHLIGH_INTERVAL = 100;
 const data = antiPatternsFiles as TAntiPatternsItem[];
 const useCatalog = () => {
-  const [{ query, search, typing }, dispatch] = useReducer(reducer, INIT_STATE);
-  const debouncedQuery = useDebounce(query, SEARCH_DEBOUNCE_TIME);
-
-  const [selectedFilter, setSelectedFilter] = useState(FilterItemsEnum.ALL);
-  const [filteredData, setFilteredData] = useState<TAntiPatternsItem[]>([]);
-  const [detailedAntiPattern, setDetailedAntiPattern] =
-    useState<TAntiPatternsItem | null>(null);
+  const { query, search, typing, dispatch, debouncedQuery } =
+    useContext(WrapperContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (query === '') dispatch({ type: ACTIONS.CLEAR_FORM });
     else
       debouncedQuery === query && dispatch({ type: ACTIONS.USER_STOP_TYPING });
   }, [debouncedQuery, dispatch, query]);
+
+  const [selectedFilter, setSelectedFilter] = useState(FilterItemsEnum.ALL);
+  const [filteredData, setFilteredData] = useState<TAntiPatternsItem[]>([]);
 
   const searchData = useCallback(() => {
     if (!search) {
@@ -70,7 +78,6 @@ const useCatalog = () => {
 
   useEffect(() => {
     if (!typing) searchData();
-    else setDetailedAntiPattern(null);
   }, [typing, searchData, search]);
 
   const filtersItemsCount = useCallback(
@@ -145,15 +152,17 @@ const useCatalog = () => {
     return [all, interFrontend, intraFrontend, operation, development];
   }, [filtersItemsCount, data]);
 
+  const handleClickItem = useCallback((data: TAntiPatternsItem) => {
+    navigate(SCREENS.DETAILS, { state: { data } });
+  }, []);
+
   return {
     filters,
     selectedFilter,
     antiPartnersItems: filteredData,
-    setQuery: dispatch,
     search,
     typing,
-    detailedAntiPattern,
-    setDetailedAntiPattern,
+    handleClickItem,
   };
 };
 

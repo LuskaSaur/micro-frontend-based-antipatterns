@@ -1,18 +1,5 @@
-import { Button, Box, Flex, IconButton, Divider } from '@chakra-ui/react';
+import { Box, Flex, IconButton, Divider } from '@chakra-ui/react';
 import styled from 'styled-components';
-
-export const HeaderButton = styled(Button).attrs({
-  background: 'transparent',
-  _active: {
-    bg: 'primary-active',
-    transform: 'scale(0.98)',
-  },
-  borderRadius: '24px',
-  textColor: 'primary',
-  _hover: { bg: 'primary-active' },
-  textAlign: 'left',
-  justifyContent: 'left',
-})``;
 
 export const HeaderContainer = styled(Flex).attrs({
   backgroundColor: 'white',

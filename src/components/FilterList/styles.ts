@@ -17,9 +17,7 @@ export const FilterButton = styled(Button).attrs({
 })``;
 
 export const FilterListContainer = styled(List).attrs({
-  marginLeft: '24px',
-  marginRight: '24px',
-  marginBottom: '24px',
+  margin: '24px 0px',
   display: 'flex',
   overflowY: 'hidden',
   whiteSpace: 'nowrap',

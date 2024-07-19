@@ -3,9 +3,6 @@ import styled from 'styled-components';
 
 export const GridContainer = styled(Grid).attrs({
   gap: '16px',
-  marginLeft: '24px',
-  marginRight: '24px',
-  marginBottom: '24px',
   templateColumns: {
     base: 'repeat(1, 1fr)',
     md: 'repeat(2, 1fr)',
@@ -22,6 +19,7 @@ export const ItemContainer = styled(Card).attrs({
     bg: 'primary-active',
     transform: 'scale(0.98)',
   },
+  cursor: 'pointer',
 })``;
 
 export const AntiPatternItemTag = styled(Tag).attrs({

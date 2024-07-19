@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react';
 import HeaderLogo from '../../assets/header-logo.svg';
 import {
   Box,
+  Button,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
@@ -16,7 +18,6 @@ import {
 import { Search2Icon, HamburgerIcon } from '@chakra-ui/icons';
 import {
   DrawerButton,
-  HeaderButton,
   HeaderContainer,
   LogoContainer,
   SearchBarContainer,
@@ -24,43 +25,53 @@ import {
 } from './styles';
 import useHeader from './hooks/useHeader';
 import { TDrawerHeaderItems } from './hooks/types';
-import { DrawerHeaderItemEnum } from '../../utils/constants';
-import {
-  ACTIONS,
-  ActionTypes,
-} from '../../screens/Catalog/reducer/searchReducer';
+import { NavLink } from 'react-router-dom';
+import { theme } from '../../theme/theme';
+import { ACTIONS } from '../../reducer/searchReducer';
+
+const activeStyle = {
+  backgroundColor: theme.colors['primary-active'],
+  fontWeight: 'bold',
+};
 
 function RenderItems({
   isColumn = false,
   items,
-  selectedItem,
 }: {
   isColumn?: boolean;
   items: TDrawerHeaderItems[];
-  selectedItem: DrawerHeaderItemEnum;
 }) {
   return (
     <>
       {items.map((item) => (
-        <HeaderButton
+        <Button
           key={item.key}
+          to={item.path}
+          as={NavLink}
           marginTop={isColumn ? '16px' : '0px'}
-          isActive={item.key === selectedItem}
+          color={'primary'}
+          background={'transparent'}
+          _active={{
+            bg: 'primary-active',
+            transform: 'scale(0.98)',
+          }}
+          _hover={{ bg: 'primary-active' }}
+          borderRadius="24px"
+          textAlign="center"
+          justifyContent="center"
+          //@ts-ignore
+          style={({ isActive }: { isActive: boolean }) =>
+            isActive ? activeStyle : { fontWeight: 'normal' }
+          }
         >
           {item.text}
-        </HeaderButton>
+        </Button>
       ))}
     </>
   );
 }
 
-export function Header({
-  selectedItem,
-  setQuery,
-}: {
-  selectedItem: DrawerHeaderItemEnum;
-  setQuery: React.Dispatch<ActionTypes>;
-}) {
+export function Header() {
   const {
     isOpen,
     items,
@@ -69,6 +80,8 @@ export function Header({
     setInputFocus,
     inputFocus,
     inputRef,
+    navigateBack,
+    setQuery,
   } = useHeader();
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -86,7 +99,7 @@ export function Header({
   return (
     <>
       <HeaderContainer>
-        <LogoContainer>
+        <LogoContainer onClick={navigateBack}>
           <Image
             src={HeaderLogo}
             width={{
@@ -94,6 +107,7 @@ export function Header({
               md: '146px',
               lg: '146px',
             }}
+            cursor="pointer"
           />
         </LogoContainer>
 
@@ -106,6 +120,7 @@ export function Header({
               onFocus={() => setInputFocus(true)}
               onBlur={() => setInputFocus(false)}
               onChange={(event) => {
+                navigateBack();
                 setQuery({
                   type: ACTIONS.USER_TYPING,
                   payload: event.target.value,
@@ -129,7 +144,7 @@ export function Header({
         </Flex>
 
         <Box display={{ base: 'none', lg: 'block', xl: 'block' }}>
-          <RenderItems items={items} selectedItem={selectedItem} />
+          <RenderItems items={items} />
         </Box>
       </HeaderContainer>
       <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
@@ -138,11 +153,11 @@ export function Header({
           <DrawerCloseButton />
           <DrawerBody>
             <Flex flexDirection="column" marginTop={'64px'}>
-              <Box alignSelf={'center'}>
-                <Image src={HeaderLogo} width="146px" />
+              <Box alignSelf={'center'} onClick={navigateBack}>
+                <Image src={HeaderLogo} width="146px" cursor="pointer" />
               </Box>
               <StyledDivider />
-              <RenderItems isColumn items={items} selectedItem={selectedItem} />
+              <RenderItems isColumn items={items} />
             </Flex>
           </DrawerBody>
         </DrawerContent>
