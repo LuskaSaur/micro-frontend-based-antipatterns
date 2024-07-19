@@ -86,14 +86,14 @@ export function Details() {
           </PathHeaderText>
         </HeaderPathContainer>
         <AntiPatternNameContainer>
-          <Flex alignItems="center">
+          <Flex alignItems="center" gap="8px">
             <ArrowBackIcon
-              width="16px"
-              height="16px"
-              marginRight="4px"
+              width="24px"
+              height="24px"
               _active={{
                 transform: 'scale(0.98)',
               }}
+              cursor="pointer"
               onClick={() => navigate(-1)}
             />
             <Text fontWeight={700} fontSize={'32px'}>
