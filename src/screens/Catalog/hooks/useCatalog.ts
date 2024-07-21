@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { WrapperContext } from '../../../components/Wrapper/Wrapper';
 import { ACTIONS } from '../../../reducer/searchReducer';
 
-const HIGHLIGH_INTERVAL = 100;
+const HIGHLIGH_INTERVAL = 200;
 const data = antiPatternsFiles as TAntiPatternsItem[];
 
 const useCatalog = () => {
